@@ -8,10 +8,10 @@ awk '/<tr data-id="[0-9]{9}"$/ {sub(/^.*="/,""); sub(/"$/,""); print; next}
 awk '/^<tr data-id="[0-9]{9}"$/ {x=NR;y=x+8}(NR==x || NR==y){sub(/^.*="/,""); sub(/".*$/,""); gsub(/&#39;/,""); print; next}'
 # with address
 
-ls |  while read -r line; do sh sahibinden_awk_v4-adresless.sh $line $line.txt; done
+ls |  while read -r line; do sh sahibinden_awk_v4-adresless.sh $line ../txt-ler/$line.txt; done
 
-cat *txt | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' > nihayet-dogru
+cat *txt | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}'> nihayet-dogru
 
-wget --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori' -A "kiralik-daire*" -r "https://www.sahibinden.com/kiralik-daire"
+wget --limit-rate=250k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler' -A "kiralik-daire*" -r "https://www.sahibinden.com/kiralik-daire"
 
 cat kiralik-daire* | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}' | more
