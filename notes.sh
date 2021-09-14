@@ -17,6 +17,9 @@ wget --wait=2 --limit-rate=250k --reject-regex 'arama|sozlesmeler|static|reklam|
 cat kiralik-daire* | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}' | more
 
 
+
+awk '{print "https://www.sahibinden.com/kiralik-daire/"$0"?pagingSize=50"}' city-list.txt > city-list-to-wget.txt
+
 awk 'BEGIN{FS="ilan|<span>"} /aramanızda/ {split(FILENAME, arr, "?"); print arr[1]"\t"$2}' *\?pagingSize\=50 > ../iller-ve-ilk-sayfadan-cekilen-sayilar.txt
 
 while read i; do sh city-sahibinden.sh $i;done <iller-ve-ilk-sayfadan-cekilen-sayilar.txt > deneme
