@@ -12,6 +12,11 @@ ls |  while read -r line; do sh sahibinden_awk_v4-adresless.sh $line ../txt-ler/
 
 cat *txt | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}'> nihayet-dogru
 
-wget --limit-rate=250k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler' -A "kiralik-daire*" -r "https://www.sahibinden.com/kiralik-daire"
+wget --wait=2 --limit-rate=250k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler' -A "kiralik-daire*" -r "https://www.sahibinden.com/kiralik-daire"
 
 cat kiralik-daire* | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}' | more
+
+
+awk 'BEGIN{FS="ilan|<span>"} /aramanızda/ {split(FILENAME, arr, "?"); print arr[1]"\t"$2}' *\?pagingSize\=50 > ../iller-ve-ilk-sayfadan-cekilen-sayilar.txt
+
+while read i; do sh city-sahibinden.sh $i;done <iller-ve-ilk-sayfadan-cekilen-sayilar.txt > deneme
