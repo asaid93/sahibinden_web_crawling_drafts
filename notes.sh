@@ -26,3 +26,7 @@ while read i; do sh city-sahibinden.sh $i;done <iller-ve-ilk-sayfadan-cekilen-sa
 
 
 wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|sorting|pagingSize' -l 2 --no-parent -r "https://www.sahibinden.com/kiralik-daire/adana"
+
+
+
+wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|sorting|pagingSize' -R "sahibinden*" -R "insaat*" -R "robots*" --accept-regex 'adana' -nH -nc -np -nd --cut-dirs 1 -r "https://www.sahibinden.com/kiralik-daire/adana" 
