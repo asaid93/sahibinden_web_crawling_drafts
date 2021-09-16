@@ -10,11 +10,11 @@ awk '/^<tr data-id="[0-9]{9}"$/ {x=NR;y=x+8}(NR==x || NR==y){sub(/^.*="/,""); su
 
 ls |  while read -r line; do sh sahibinden_awk_v4-adresless.sh $line ../txt-ler/$line.txt; done
 
-cat *txt | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}'> nihayet-dogru
+cat *txt | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}' | awk  'BEGIN{FS=OFS="|";} $8~/Merkez/ {$8=$7} {print}' > nihayet-dogru
 
 wget --wait=2 --limit-rate=250k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler' -A "kiralik-daire*" -r "https://www.sahibinden.com/kiralik-daire"
 
-cat kiralik-daire* | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}' | more
+wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|sorting|pagingSize' -R "sahibinden*" -R "insaat*" -R "robots*" --accept-regex 'adana' -nH -nc -np -nd --cut-dirs 1 -r "https://www.sahibinden.com/kiralik-daire/adana" 
 
 
 
@@ -30,3 +30,38 @@ wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kate
 
 
 wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|sorting|pagingSize' -R "sahibinden*" -R "insaat*" -R "robots*" --accept-regex 'adana' -nH -nc -np -nd --cut-dirs 1 -r "https://www.sahibinden.com/kiralik-daire/adana" 
+
+
+###CURL###
+cat city-list-to-wget.txt | while read f; do echo -e "url = \"${f}\"\n-O\n" >> config; done;
+curl -K config
+###CURL###
+
+#jsondan geojson a cevrilen dosyadaki turkce karakter sorunu için
+cat output.geojson | sed 's/\\\u0130/İ/g'
+###Here are Unicode characters and Turkish characters which I want to replace.
+ğ - \u011f
+Ğ - \u011e
+ı - \u0131
+İ - \u0130
+ö - \u00f6
+Ö - \u00d6
+ü - \u00fc
+Ü - \u00dc
+ş - \u015f
+Ş - \u015e
+ç - \u00e7
+Ç - \u00c7
+
+
+# to format json from unformatted one line to human readable pretty print with line break
+# https://stackoverflow.com/questions/352098/how-can-i-pretty-print-json-in-a-shell-script
+python -m json.tool my_json.json
+
+
+wget --limit-rate=500k -I 'coronavirus/country/france/','coronavirus/country/turkey/' --accept-regex 'turkey|france' --reject-regex 'favicon|css|img|js|weekly|graphs|about|index' -m -p -E -k -K -l 3 -r "https://www.worldometers.info/coronavirus/"
+
+
+###İkisi de aynı işlemi yapıyor###
+awk '$0 ~ /coordinates/ {line_lon=NR+1; line_lat=NR+2} {if(NR==line_lon || NR==line_lat) gsub(/"|[0-9][0-9]"/,""); print}' deneme-input
+awk '$0 ~ /coordinates/ {line_lon=NR+1; line_lat=NR+2} (NR==line_lon || NR==line_lat) {gsub(/"|[0-9][0-9]"/,"")} {print}' deneme-input
