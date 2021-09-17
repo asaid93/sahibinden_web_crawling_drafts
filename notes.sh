@@ -24,6 +24,7 @@ wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kate
 
 wget --limit-rate=200k --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|sorting|pagingSize' -R "sahibinden*" -R "insaat*" -R "robots*" --accept-regex 'adana' -nH -nc -np -nd --cut-dirs 1 -r "https://www.sahibinden.com/kiralik-daire/adana" 
 
+wget --limit-rate=250k --reject-regex 'toplu|guvenli|cikis|favicon|mobil|neden|magaza|site|param|arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|sorting|pagingSize' -nH -np -m -p -E -k -l 3 -r https://www.sahibinden.com/kiralik-daire\?address_city\={68,69}
 
 ###CURL###
 cat city-list-to-wget.txt | while read f; do echo -e "url = \"${f}\"\n-O\n" >> config; done;
