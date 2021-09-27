@@ -97,5 +97,5 @@ cat output.geojson | sed 's/\\\u0130/İ/g'
 
 wget --limit-rate=500k -I 'coronavirus/country/france/','coronavirus/country/turkey/' --accept-regex 'turkey|france' --reject-regex 'favicon|css|img|js|weekly|graphs|about|index' -m -p -E -k -K -l 3 -r "https://www.worldometers.info/coronavirus/"
 
-
+wget --limit-rate=100k --user-agent="Mozilla/5.0" --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|date|address|m2-brut|bm|pagingSize=20' -R "sahibinden" -R "insaat*" --accept-regex 'asc' -nH -np -m -p -E -k -l 4 -r https://www.sahibinden.com/kiralik/istanbul-basaksehir
 
