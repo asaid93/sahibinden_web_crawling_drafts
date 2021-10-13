@@ -1,0 +1,25 @@
+[said@saidtr kiralik]$ ls !(*\?*) | while read -r city; do awk 'BEGIN{FS="</h1>|</div>"} /aramanızda/ {gsub(/<.?span>/,""); split(FILENAME, arr, "."); print arr[1]"\t"$2}' $city; done
+ankara-akyurt	 aramanızda 20 ilan bulundu.
+ankara-altindag	 aramanızda 173 ilan bulundu.
+ankara-ayas	 aramanızda seçtiğiniz kriterlerde ilan bulunamadı.
+ankara-bala	 aramanızda seçtiğiniz kriterlerde ilan bulunamadı.
+ankara-beypazari	 aramanızda 13 ilan bulundu.
+ankara-camlidere	 aramanızda seçtiğiniz kriterlerde ilan bulunamadı.
+ankara-cubuk	 aramanızda 50 ilan bulundu.
+ankara-elmadag	 aramanızda 19 ilan bulundu.
+ankara-etimesgut	 aramanızda 564 ilan bulundu.
+ankara-evren	 aramanızda seçtiğiniz kriterlerde ilan bulunamadı.
+ankara-golbasi	 aramanızda 292 ilan bulundu.
+ankara-güdül	 aramanızda seçtiğiniz kriterlerde ilan bulunamadı.
+ankara-haymana	 aramanızda seçtiğiniz kriterlerde ilan bulunamadı.
+ankara-kahramankazan	 aramanızda 19 ilan bulundu.
+ankara-kalecik	 aramanızda 2 ilan bulundu.
+ankara-kecioren	 aramanızda 693 ilan bulundu.
+ankara-kizilcahamam	 aramanızda 28 ilan bulundu.
+ankara-mamak	 aramanızda 357 ilan bulundu.
+ankara-nallihan	 aramanızda 3 ilan bulundu.
+ankara-polatli	 aramanızda 80 ilan bulundu.
+ankara-pursaklar	 aramanızda 89 ilan bulundu.
+ankara-sereflikochisar	 aramanızda 4 ilan bulundu.
+ankara-sincan	 aramanızda 161 ilan bulundu.
+ankara-yenimahalle	 aramanızda 472 ilan bulundu.
