@@ -13,7 +13,12 @@ awk -v FS="|" -v ORS="" '($0~/^[0-9]{9}$/) {print "\n"$0} ($0!~/^[0-9]{9}$/){pri
 awk '/^<tr data-id="[0-9]{9}"$/ {x=NR;y=x+8}(NR==x || NR==y){sub(/^.*="/,""); sub(/".*$/,""); gsub(/&#39;/,""); print; next}'
 # with address
 
+# new extracting method
+ls *.html | while read -r city; do METADATA=$(awk 'BEGIN{FS="</h1>|</div>"} /aramanızda/ {gsub(/<.?span>/,""); split($2, sayi, " "); split(FILENAME, arr, "."); if(sayi[2]=="seçtiğiniz") sayi[2]="0"} /Bu sayfa en son/ {split($0,zaman,"<.?span>")} END{ if(zaman[2]==NULL) zaman[2]="!ILAN MEVCUT DEGILDIR!"} /sayfa içerisinde/ {split($0,sayfa,/[.| ]/)} {if (sayfa[11]==NULL) sayfa[11]=sayfa[14]=1} END{print zaman[2]"|"sayfa[14]"/"sayfa[11]"|"sayi[2]"|"arr[1]}' $city) ; echo $METADATA ; sh sahibinden_awk_v5-by-ID.sh $city ../txt-ler/$city "$METADATA"; done
+# new extracting method
+# obsolete
 ls |  while read -r line; do sh sahibinden_awk_v5-by-ID.sh $line ../txt-ler/$line.txt; done
+# obsolete
 
 cat *txt | sort | uniq -c | awk '{gsub(/^.{8}/,"")}1' | awk -F"|" '$1 ~ /[0-9]{9}/ {print}' | awk '{gsub(/\./,""); print}' | awk  'BEGIN{FS=OFS="|";} $8~/Merkez/ {$8=$7} {print}' > nihayet-dogru
 
