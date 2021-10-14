@@ -1,4 +1,4 @@
-[said@saidtr kiralik]$ ls !(*\?*) | while read -r city; do awk 'BEGIN{FS="</h1>|</div>"} /aramanızda/ {gsub(/<.?span>/,""); split($2, sayi, " "); split(FILENAME, arr, "."); if(sayi[2]=="seçtiğiniz") sayi[2]="0"; print sayi[2]"\t"arr[1]}' $city; done
+[said@saidtr kiralik]$ ls !(*\?*) | while read -r city; do awk 'BEGIN{FS="</h1>|</div>"} /aramanızda/ {gsub(/<.?span>/,""); split($2, sayi, " "); split(FILENAME, arr, "."); if(sayi[2]=="seçtiğiniz") sayi[2]="0"} /Bu sayfa en son/ {split($0,zaman,"<.?span>")} END{print zaman[2]"\t"sayi[2]"\t"arr[1]}' $city; done
 20	ankara-akyurt
 173	ankara-altindag
 0	ankara-ayas
