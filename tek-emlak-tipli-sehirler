@@ -1,0 +1,19 @@
+root@DESKTOP-98HCC8A:/sahibinden/downloads/20211021# ls */*/!(*\?*) | xargs grep -c '<li class="cl3">' | awk -F":" '$2 ~ 1 {split($1,dizi,"[/|.]"); print "https://www.sahibinden.com/kiralik-daire/"dizi[3]}'
+https://www.sahibinden.com/kiralik-daire/ankara-cubuk
+https://www.sahibinden.com/kiralik-daire/ankara-kecioren
+https://www.sahibinden.com/kiralik-daire/ankara-kizilcahamam
+https://www.sahibinden.com/kiralik-daire/ankara-nallihan
+https://www.sahibinden.com/kiralik-daire/ankara-polatli
+https://www.sahibinden.com/kiralik-daire/ankara-pursaklar
+https://www.sahibinden.com/kiralik-daire/ankara-sereflikochisar
+https://www.sahibinden.com/kiralik-daire/antalya-korkuteli
+https://www.sahibinden.com/kiralik-daire/adiyaman
+https://www.sahibinden.com/kiralik-daire/gumushane
+https://www.sahibinden.com/kiralik-daire/hakkari
+https://www.sahibinden.com/kiralik-daire/istanbul-esenler
+https://www.sahibinden.com/kiralik-daire/istanbul-sultangazi
+https://www.sahibinden.com/kiralik-daire/izmir-bayindir
+https://www.sahibinden.com/kiralik-daire/izmir-kinik
+https://www.sahibinden.com/kiralik-daire/izmir-kiraz
+https://www.sahibinden.com/kiralik-daire/izmir-selcuk
+https://www.sahibinden.com/kiralik-daire/mugla-yatagan
