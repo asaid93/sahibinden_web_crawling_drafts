@@ -116,3 +116,11 @@ wget --limit-rate=500k -I 'coronavirus/country/france/','coronavirus/country/tur
 
 wget --limit-rate=100k --user-agent="Mozilla/5.0" --reject-regex 'arama|sozlesmeler|static|reklam|ilan|kategori|doping-tanitim|kurumsal|guvenli-alisverisin-ipuclari|projeler|destek|daireler|search|emlak|for|search-map|emlak-konut|viewType|date|address|m2-brut|bm|pagingSize=20' -R "sahibinden" -R "insaat*" --accept-regex 'asc' -nH -np -m -p -E -k -l 4 -r https://www.sahibinden.com/kiralik/istanbul-basaksehir
 
+# 429 hatası alınanlar
+grep -B 4 ERROR log.log > error.log
+grep kiralik error.log | awk -F"[ |\?]" '{print $4}' | uniq | wc -l
+
+
+# TEK TİP EMLAK
+ls */*/!(*\?*) | xargs grep -c '<li class="cl3">' | awk -F":" '$2 ~ 1 {split($1,dizi,"[/|.]"); print "https://www.sahibinden.com/kiralik-daire/"dizi[3]}'
+
