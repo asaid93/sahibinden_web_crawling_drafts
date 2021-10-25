@@ -124,3 +124,6 @@ grep kiralik error.log | awk -F"[ |\?]" '{print $4}' | uniq | wc -l
 # TEK TİP EMLAK
 ls */*/!(*\?*) | xargs grep -c '<li class="cl3">' | awk -F":" '$2 ~ 1 {split($1,dizi,"[/|.]"); print "https://www.sahibinden.com/kiralik-daire/"dizi[3]}'
 
+cat 23-ekim-full.txt | awk -F"|" 'BEGIN{OFS="|"} (NF ~ 12){$1=$1"|Daire"} {print}' | sort > 23-ekim-sorted.txt
+
+cat 22ekim-sort-pipe.txt | awk -F"|" 'BEGIN{OFS="|"} {split($NF,arr,"-"); $NF=arr[1]"|"arr[2]"|"arr[3]} {print}'
